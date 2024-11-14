@@ -1,29 +1,24 @@
 import React from 'react';
-import './HowItWorks.css'; // Подключаем файл со стилями
+import "../HeaderHowItWorks/Header.sass";
 
-const HowItWorks = () => {
-  return (
-    <div className="how-it-works-container">
-      <h1 className="title">How It Works</h1>
-      <p className="intro-text">
-        Here’s how our platform works to help you get the best experience. Just follow these steps.
-      </p>
-      <div className="steps">
-        <div className="step">
-          <h2>Step 1: Sign Up</h2>
-          <p>Register an account to start exploring our features and services.</p>
+const steps = [
+  { title: "Step 1", description: "Description of step 1" },
+  { title: "Step 2", description: "Description of step 2" },
+  { title: "Step 3", description: "Description of step 3" },
+];
+
+const HowItWorks = () => (
+  <section className="how-it-works" id="how-it-works">
+    <h2>How it Works</h2>
+    <div className="how-it-works__steps">
+      {steps.map((step, index) => (
+        <div key={index} className="how-it-works__step">
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
         </div>
-        <div className="step">
-          <h2>Step 2: Choose a Plan</h2>
-          <p>Select the plan that best suits your needs and goals.</p>
-        </div>
-        <div className="step">
-          <h2>Step 3: Start Using</h2>
-          <p>Access our tools and resources to achieve your objectives.</p>
-        </div>
-      </div>
+      ))}
     </div>
-  );
-};
+  </section>
+);
 
 export default HowItWorks;
