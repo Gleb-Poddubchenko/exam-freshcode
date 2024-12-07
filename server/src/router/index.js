@@ -7,6 +7,7 @@ const checkToken = require('../middlewares/checkToken');
 const validators = require('../middlewares/validators');
 const chatController = require('../controllers/chatController');
 const upload = require('../utils/fileUpload');
+const userController = require('../controllers/userController');
 const router = express.Router();
 
 router.post(
@@ -176,6 +177,12 @@ router.post(
   '/getCatalogs',
   checkToken.checkToken,
   chatController.getCatalogs,
+);
+
+router.post(
+  '/cashback',
+  checkToken.checkToken, 
+  userController.calculateCashback 
 );
 
 module.exports = router;
