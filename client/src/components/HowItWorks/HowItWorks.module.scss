@@ -1,0 +1,16 @@
+.howItWorks {
+    display: flex;
+    flex-direction: column;
+  
+    
+    > * + * {
+      margin-top: 80px; 
+    }
+  
+    
+    @media (max-width: 768px) {
+      > * + * {
+        margin-top: 30px;
+      }
+    }
+  }

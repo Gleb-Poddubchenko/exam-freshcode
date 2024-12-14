@@ -1,48 +1,58 @@
 import React from 'react';
-import './CardSection.css';
-
-
+import styles from './CardSection.module.scss';
 import icon1 from '../../../public/staticImages/diamond.png';
 import icon2 from '../../../public/staticImages/clock.png';
 import icon3 from '../../../public/staticImages/star.png';
 
-const cards = [
-  {
-    icon: icon1,
-    title: 'Launch a Contest',
-    description: 'Work with hundreds of creative experts to get custom name suggestions for your business.',
-    buttonText: 'Launch a Contest',
-  },
-  {
-    icon: icon2,
-    title: 'Explore Names For Sale',
-    description: 'Our branding team has curated thousands of pre-made names that you can purchase instantly.',
-    buttonText: 'Explore Names For Sale',
-  },
-  {
-    icon: icon3,
-    title: 'Agency-level Managed Contests',
-    description: 'Get a complete agency-level experience at a fraction of Agency costs.',
-    buttonText: 'Learn More',
-  },
-];
-
 const CardSection = () => {
+  const cards = [
+    {
+      id: 1,
+      icon: icon1,
+      title: 'Launch a Contest',
+      description: 'Work with hundreds of creative experts to get custom name suggestions for your business or brand. All names are auto-checked for URL availability.',
+      buttonText: 'Launch a Contest',
+      buttonLink: 'https://www.google.com',
+    },
+    {
+      id: 2,
+      icon: icon2,
+      title: 'Explore Names For Sale',
+      description: 'Our branding team has curated thousands of pre-made names that you can purchase instantly. All names include a matching URL and a complimentary Logo Design.',
+      buttonText: 'Explore Names For Sale',
+      buttonLink: 'https://www.google.com',
+    },
+    {
+      id: 3,
+      icon: icon3,
+      title: 'Agency-level Managed Contests',
+      description: 'Our Managed contests combine the power of crowdsourcing with the rich experience of our branding consultants. Get a complete agency-level experience at a fraction of Agency costs.',
+      buttonText: 'Learn More',
+      buttonLink: 'https://www.google.com',
+    },
+  ];
+
   return (
-    <section className="card-section">
-      <h2>3 Ways To Use Atom</h2>
-      <p>Atom offers 3 ways to get you a perfect name for your business.</p>
-      <div className="card-container">
-        {cards.map((card, index) => (
-          <div className="card" key={index}>
-            <img src={card.icon} alt={`${card.title} icon`} className="card-icon" />
+    <div className={styles.cardSection}>
+      <div className={styles.header}>
+        <h2>3 Ways To Use Atom</h2>
+        <p>Atom offers 3 ways to get you a perfect name for your business.</p>
+      </div>
+      <div className={styles.cards}>
+        {cards.map((card) => (
+          <div className={styles.card} key={card.id}>
+            <div className={styles.iconWrapper}>
+              <img src={card.icon} alt={card.title} className={styles.icon} />
+            </div>
             <h3>{card.title}</h3>
             <p>{card.description}</p>
-            <button onClick={() => window.open('https://www.google.com', '_blank')}>{card.buttonText}</button>
+            <a href={card.buttonLink} target="_blank" rel="noopener noreferrer" className={styles.button}>
+              {card.buttonText}
+            </a>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 
