@@ -7,6 +7,7 @@ import NextButton from '../../components/NextButton/NextButton';
 import ContestForm from '../../components/ContestForm/ContestForm';
 import BackButton from '../../components/BackButton/BackButton';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
+import ButtonGroup from '../../components/ButtonGroup/ButtonGroup';
 
 const ContestCreationPage = (props) => {
   const formRef = useRef();
@@ -21,7 +22,7 @@ const ContestCreationPage = (props) => {
     const route =
       props.bundleStore.bundle[props.contestType] === 'payment'
         ? '/payment'
-        : `/startContest/${props.bundleStore.bundle[props.contestType]}Contest`;
+        : /startContest/`${props.bundleStore.bundle[props.contestType]}Contest`;
     navigate(route);
   };
 
@@ -31,7 +32,13 @@ const ContestCreationPage = (props) => {
     }
   };
 
-  !props.bundleStore.bundle && navigate('/startContest', {replace: true});
+  !props.bundleStore.bundle && navigate('/startContest', { replace: true });
+
+  // Добавляем обработчик для ButtonGroup
+  const handleButtonGroupClick = (value) => {
+    console.log(`Selected: ${value}`);
+    // Здесь можно дополнительно настроить обработку, например, сохранить в Redux
+  };
 
   return (
     <div>
@@ -44,6 +51,8 @@ const ContestCreationPage = (props) => {
           </span>
         </div>
         <ProgressBar currentStep={2} />
+        {/* Компонент ButtonGroup */}
+        <ButtonGroup onClick={handleButtonGroupClick} />
       </div>
       <div className={styles.container}>
         <div className={styles.formContainer}>

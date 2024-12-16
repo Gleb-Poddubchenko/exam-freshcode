@@ -1,78 +1,47 @@
-import React, { useState } from "react";
-import styles from "./FAQSection.module.scss";
-import faqData from "./faqData"; 
+import React, { useState } from 'react';
+import './FAQSection.css';
+
+const faqData = [
+  {
+    question: 'How long does it take to start receiving submissions?',
+    answer: 'You will start receiving submissions within minutes after launching your contest.',
+  },
+  {
+    question: 'How long do Naming Contests last?',
+    answer: 'Most naming contests last for 5 to 7 days, but you can choose your desired duration.',
+  },
+  {
+    question: 'Where are the creatives located?',
+    answer: 'Our creative community is global, with participants from various countries.',
+  },
+  {
+    question: 'What if I do not like any submissions?',
+    answer: 'If you do not like any submissions, we will work with you to provide additional ideas.',
+  },
+];
 
 const FAQSection = () => {
-  const [activeTab, setActiveTab] = useState(0); 
-  const [activeIndexes, setActiveIndexes] = useState([]); 
+  const [openIndex, setOpenIndex] = useState(null);
 
-  const toggleFAQ = (id) => {
-    if (activeIndexes.includes(id)) {
-      setActiveIndexes(activeIndexes.filter((index) => index !== id)); 
-    } else {
-      setActiveIndexes([...activeIndexes, id]); 
-    }
-  };
-
-  const handleTabClick = (index) => {
-    setActiveTab(index);
-    document
-      .getElementById(faqData[index].category.replace(/\s+/g, "-"))
-      .scrollIntoView({ behavior: "smooth" });
+  const toggleFAQ = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <div className={styles.faqSection}>
-      <h1 className={styles.header}>Frequently Asked Questions</h1>
-
-     
-      <div className={styles.tabs}>
-        {faqData.map((tab, index) => (
-          <button
-            key={index}
-            className={`${styles.tabButton} ${
-              activeTab === index ? styles.active : ""
-            }`}
-            onClick={() => handleTabClick(index)}
-          >
-            {tab.category}
-          </button>
+    <section className="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div className="faq-container">
+        {faqData.map((faq, index) => (
+          <div className="faq-item" key={index}>
+            <div className="faq-question" onClick={() => toggleFAQ(index)}>
+              {faq.question}
+            </div>
+            {openIndex === index && <div className="faq-answer">{faq.answer}</div>}
+          </div>
         ))}
       </div>
-
-      
-      {faqData.map((section, sectionIndex) => (
-        <div
-          id={section.category.replace(/\s+/g, "-")}
-          key={sectionIndex}
-          className={styles.section}
-        >
-          <h2>{section.category}</h2>
-          {section.faqs.map((faq) => (
-            <div
-              key={faq.id}
-              className={`${styles.faqItem} ${
-                activeIndexes.includes(faq.id) ? styles.activeFaq : ""
-              }`}
-            >
-              <div
-                className={styles.faqHeader}
-                onClick={() => toggleFAQ(faq.id)}
-              >
-                <h3>{faq.question}</h3>
-                <span>{activeIndexes.includes(faq.id) ? "×" : "+"}</span>
-              </div>
-              {activeIndexes.includes(faq.id) && (
-                <div className={styles.faqContent}>
-                  <p>{faq.answer}</p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
+    </section>
   );
 };
 
-export default FAQSection;
+export default FAQSection
