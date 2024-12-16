@@ -7,6 +7,8 @@ const checkToken = require('../middlewares/checkToken');
 const validators = require('../middlewares/validators');
 const chatController = require('../controllers/chatController');
 const upload = require('../utils/fileUpload');
+const { payTopCreatives } = require('../controllers/creativeController');
+
 const router = express.Router();
 
 router.post(
@@ -176,6 +178,12 @@ router.post(
   '/getCatalogs',
   checkToken.checkToken,
   chatController.getCatalogs,
+);
+
+router.post(
+  '/payTopCreatives',
+  checkToken.checkToken, 
+  payTopCreatives 
 );
 
 module.exports = router;
