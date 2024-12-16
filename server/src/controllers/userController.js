@@ -8,7 +8,6 @@ const controller = require('../socketInit');
 const userQueries = require('./queries/userQueries');
 const bankQueries = require('./queries/bankQueries');
 const ratingQueries = require('./queries/ratingQueries');
-const { addCashback } = require('../utils/cashbackService');
 
 module.exports.login = async (req, res, next) => {
   try {
@@ -203,16 +202,6 @@ module.exports.cashout = async (req, res, next) => {
   } catch (err) {
     transaction.rollback();
     next(err);
-  }
-};
-
-module.exports.calculateCashback = async (req, res) => {
-  try {
-    await addCashback(); 
-    res.status(200).json({ message: 'Cashback successfully credite!' });
-  } catch (error) {
-    console.error('Cashback accrual error:', error);
-    res.status(500).json({ message: 'Error in cashback accrual.', error });
   }
 };
 
