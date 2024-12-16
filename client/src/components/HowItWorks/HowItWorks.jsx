@@ -1,24 +1,34 @@
 import React from 'react';
-import "../HeaderHowItWorks/Header.sass";
+import './HowItWorks.scss';
+import StepSection from '../StepSection/StepSection'; // компонент для секций
+import HeroSection from '../HeroSection/HeroSection'; // заглавная секция
 
-const steps = [
-  { title: "Step 1", description: "Description of step 1" },
-  { title: "Step 2", description: "Description of step 2" },
-  { title: "Step 3", description: "Description of step 3" },
-];
-
-const HowItWorks = () => (
-  <section className="how-it-works" id="how-it-works">
-    <h2>How it Works</h2>
-    <div className="how-it-works__steps">
-      {steps.map((step, index) => (
-        <div key={index} className="how-it-works__step">
-          <h3>{step.title}</h3>
-          <p>{step.description}</p>
-        </div>
-      ))}
+const HowItWorks = () => {
+  return (
+    <div className="how-it-works">
+      <HeroSection />
+      <div className="steps-container">
+        <StepSection
+          stepNumber="1"
+          title="Заголовок шага 1"
+          description="Описание шага 1."
+          icon="fa fa-search" // Используем иконку, например, из FontAwesome
+        />
+        <StepSection
+          stepNumber="2"
+          title="Заголовок шага 2"
+          description="Описание шага 2."
+          icon="fa fa-cog"
+        />
+        <StepSection
+          stepNumber="3"
+          title="Заголовок шага 3"
+          description="Описание шага 3."
+          icon="fa fa-check"
+        />
+      </div>
     </div>
-  </section>
-);
+  );
+};
 
 export default HowItWorks;
