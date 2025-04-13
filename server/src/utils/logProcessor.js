@@ -30,7 +30,7 @@ function processLogFile() {
           return JSON.stringify({
             message: entry.message || 'Unknown error',
             code: entry.code || 500,
-            time: entry.time || new Date().toISOString(),
+            time: entry.time || Date.now(),
           });
         } catch (e) {
           console.error('Error parsing log entry:', e);
@@ -40,9 +40,9 @@ function processLogFile() {
       .filter(Boolean)
       .join('\n');
 
-    const backupFileName = `error_log_${
-      new Date().toISOString().split('T')[0]
-    }.log`;
+    const now = new Date();
+    const timestamp = now.toISOString().replace(/[:]/g, '-').split('.')[0];
+    const backupFileName = `error_log_${timestamp}.log`;
     const backupFilePath = path.join(backupDir, backupFileName);
 
     fs.writeFile(backupFilePath, transformedData, (writeErr) => {
