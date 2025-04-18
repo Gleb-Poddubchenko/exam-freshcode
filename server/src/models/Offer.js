@@ -1,7 +1,5 @@
-
-
 module.exports = (sequelize, DataTypes) => {
-  const Offer = sequelize.define('Offers', {
+  const Offer = sequelize.define('Offer', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -11,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-
     },
     contestId: {
       type: DataTypes.INTEGER,
@@ -30,22 +27,29 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
     status: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.ENUM('pending', 'approved', 'rejected'),
+      allowNull: false,
       defaultValue: 'pending',
     },
-  },
-  {
+    moderated: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+  }, {
     timestamps: false,
   });
 
   Offer.associate = function (models) {
-    Offer.belongsTo(models.User, { foreignKey: 'user_id', sourceKey: 'id' });
-  };
+    Offer.belongsTo(models.User, {
+      foreignKey: 'userId',
+      targetKey: 'id',
+    });
 
-  Offer.associate = function (models) {
-    Offer.belongsTo(models.Contest,
-      { foreignKey: 'contest_id', sourceKey: 'id' });
+    Offer.belongsTo(models.Contest, {
+      foreignKey: 'contestId',
+      targetKey: 'id',
+    });
   };
 
   return Offer;
