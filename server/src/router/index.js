@@ -8,6 +8,7 @@ const validators = require('../middlewares/validators');
 const chatController = require('../controllers/chatController');
 const upload = require('../utils/fileUpload');
 const { payTopCreatives } = require('../controllers/creativeController');
+const offerController = require('../controllers/offerController'); // добавлено
 
 const router = express.Router();
 
@@ -182,8 +183,20 @@ router.post(
 
 router.post(
   '/payTopCreatives',
-  checkToken.checkToken, 
-  payTopCreatives 
+  checkToken.checkToken,
+  payTopCreatives
+);
+
+
+router.get(
+  '/offers/moderate',
+  offerController.getPendingOffers
+);
+
+router.post(
+  '/offers/moderate',
+  checkToken.checkToken,
+  offerController.moderateOffer
 );
 
 module.exports = router;
