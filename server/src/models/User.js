@@ -1,7 +1,5 @@
-
-
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('Users', {
+  const User = sequelize.define('User', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -55,27 +53,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0,
     },
-  },
-  {
+  }, {
     timestamps: false,
   });
 
   User.associate = function (models) {
-    User.hasMany(models.Order, { foreignKey: 'user_id', targetKey: 'id' });
-  };
-
-  User.associate = function (models) {
-    User.hasMany(models.Participant,
-      { foreignKey: 'user_id', targetKey: 'id' });
-  };
-
-  User.associate = function (models) {
-    User.hasMany(models.Offer, { foreignKey: 'user_id', targetKey: 'id' });
-  };
-
-  User.associate = function (models) {
-    User.hasMany(models.RefreshToken,
-      { foreignKey: 'user_id', targetKey: 'id' });
+    User.hasMany(models.Offer, {
+      foreignKey: 'userId',
+      sourceKey: 'id',
+    });
   };
 
   return User;

@@ -7,15 +7,11 @@ console.log('>> server/models/index.js подключён');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 
-
 const config = require(path.join(__dirname, '..', 'config', 'postgresConfig.json'))[env];
 console.log('CONFIG LOADED:', config);
 
 const db = {};
-
-
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
-
 
 fs
   .readdirSync(__dirname)
@@ -29,13 +25,12 @@ fs
     db[model.name] = model;
   });
 
-
-const Conversation = require('../../sqlModels/Conversation')(sequelize, Sequelize.DataTypes);
-const Message = require('../../sqlModels/Message')(sequelize, Sequelize.DataTypes);
-
-db.Conversation = Conversation;
-db.Message = Message;
-
+// ВАЖНО: вызываем associate если есть
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

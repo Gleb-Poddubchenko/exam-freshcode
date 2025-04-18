@@ -1,7 +1,5 @@
-
-
 module.exports = (sequelize, DataTypes) => {
-  const Contest = sequelize.define('Contests', {
+  const Contest = sequelize.define('Contest', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -15,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       allowNull: false,
       type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id',
-      },
     },
     contestType: {
       allowNull: false,
@@ -84,10 +78,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
     },
-  },
-  {
+  }, {
     timestamps: false,
   });
+
+  Contest.associate = function (models) {
+    Contest.hasMany(models.Offer, {
+      foreignKey: 'contestId',
+      sourceKey: 'id',
+    });
+  };
 
   return Contest;
 };
