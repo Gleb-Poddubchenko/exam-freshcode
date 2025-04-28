@@ -8,31 +8,27 @@ const validators = require('../middlewares/validators');
 const chatController = require('../controllers/chatController');
 const upload = require('../utils/fileUpload');
 const { payTopCreatives } = require('../controllers/creativeController');
-const offerController = require('../controllers/offerController'); // добавлено
+const offerController = require('../controllers/offerController');
 
 const router = express.Router();
 
-router.post(
-  '/registration',
+router.post('/registration',
   validators.validateRegistrationData,
   hashPass,
   userController.registration,
 );
 
-router.post(
-  '/login',
+router.post('/login',
   validators.validateLogin,
   userController.login,
 );
 
-router.post(
-  '/dataForContest',
+router.post('/dataForContest',
   checkToken.checkToken,
   contestController.dataForContest,
 );
 
-router.post(
-  '/pay',
+router.post('/pay',
   checkToken.checkToken,
   basicMiddlewares.onlyForCustomer,
   upload.uploadContestFiles,
@@ -41,162 +37,139 @@ router.post(
   userController.payment,
 );
 
-router.post(
-  '/getCustomersContests',
+router.post('/getCustomersContests',
   checkToken.checkToken,
   contestController.getCustomersContests,
 );
 
-router.get(
-  '/getContestById',
+router.get('/getContestById',
   checkToken.checkToken,
   basicMiddlewares.canGetContest,
   contestController.getContestById,
 );
 
-router.post(
-  '/getAllContests',
+router.post('/getAllContests',
   checkToken.checkToken,
   basicMiddlewares.onlyForCreative,
   contestController.getContests,
 );
 
-router.post(
-  '/getUser',
+router.post('/getUser',
   checkToken.checkAuth,
 );
 
-router.get(
-  '/downloadFile/:fileName',
+router.get('/downloadFile/:fileName',
   checkToken.checkToken,
   contestController.downloadFile,
 );
 
-router.post(
-  '/updateContest',
+router.post('/updateContest',
   checkToken.checkToken,
   upload.updateContestFile,
   contestController.updateContest,
 );
 
-router.post(
-  '/setNewOffer',
+router.post('/setNewOffer',
   checkToken.checkToken,
   upload.uploadLogoFiles,
   basicMiddlewares.canSendOffer,
   contestController.setNewOffer,
 );
 
-router.post(
-  '/setOfferStatus',
+router.post('/setOfferStatus',
   checkToken.checkToken,
   basicMiddlewares.onlyForCustomerWhoCreateContest,
   contestController.setOfferStatus,
 );
 
-router.post(
-  '/changeMark',
+router.post('/changeMark',
   checkToken.checkToken,
   basicMiddlewares.onlyForCustomer,
   userController.changeMark,
 );
 
-router.post(
-  '/updateUser',
+router.post('/updateUser',
   checkToken.checkToken,
   upload.uploadAvatar,
   userController.updateUser,
 );
 
-router.post(
-  '/cashout',
+router.post('/cashout',
   checkToken.checkToken,
   basicMiddlewares.onlyForCreative,
   userController.cashout,
 );
 
-router.post(
-  '/newMessage',
+/* === Чаты и Каталоги (SQL) === */
+
+router.post('/newMessage',
   checkToken.checkToken,
   chatController.addMessage,
 );
 
-router.post(
-  '/getChat',
+router.post('/getChat',
   checkToken.checkToken,
   chatController.getChat,
 );
 
-router.post(
-  '/getPreview',
+router.post('/getPreview',
   checkToken.checkToken,
   chatController.getPreview,
 );
 
-router.post(
-  '/blackList',
+router.post('/blackList',
   checkToken.checkToken,
   chatController.blackList,
 );
 
-router.post(
-  '/favorite',
+router.post('/favorite',
   checkToken.checkToken,
   chatController.favoriteChat,
 );
 
-router.post(
-  '/createCatalog',
+router.post('/createCatalog',
   checkToken.checkToken,
   chatController.createCatalog,
 );
 
-router.post(
-  '/updateNameCatalog',
+router.post('/updateNameCatalog',
   checkToken.checkToken,
   chatController.updateNameCatalog,
 );
 
-router.post(
-  '/addNewChatToCatalog',
+router.post('/addNewChatToCatalog',
   checkToken.checkToken,
   chatController.addNewChatToCatalog,
 );
 
-router.post(
-  '/removeChatFromCatalog',
+router.post('/removeChatFromCatalog',
   checkToken.checkToken,
   chatController.removeChatFromCatalog,
 );
 
-router.post(
-  '/deleteCatalog',
+router.post('/deleteCatalog',
   checkToken.checkToken,
   chatController.deleteCatalog,
 );
 
-router.post(
-  '/getCatalogs',
+router.post('/getCatalogs',
   checkToken.checkToken,
   chatController.getCatalogs,
 );
 
-router.post(
-  '/payTopCreatives',
+router.post('/payTopCreatives',
   checkToken.checkToken,
-  payTopCreatives
+  payTopCreatives,
 );
 
 
-router.get(
-  '/offers/moderate',
-  offerController.getPendingOffers
+router.get('/offers/moderate',
+  offerController.getPendingOffers,
 );
 
-router.post(
-  '/offers/moderate',
+router.post('/offers/moderate',
   checkToken.checkToken,
-  offerController.moderateOffer
+  offerController.moderateOffer,
 );
 
 module.exports = router;
