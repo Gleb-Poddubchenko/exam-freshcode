@@ -22,7 +22,7 @@ services:
     environment:
       NODE_ENV: development
     ports:
-      - "3001:3000"
+      - "3000:3000"
     depends_on:
       - db-dev
       - mongo-dev
@@ -30,7 +30,7 @@ services:
       - ./var/www/html/images:/var/www/html/images
       - ./server:/server
       - /server/node_modules
-      command: ["node", "src/countMessages.js"]
+    command: ["npm", "start"]
 
 
   mongo-dev:

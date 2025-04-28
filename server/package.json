@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon ./src/index.js",
     "test": "jest",
-    "process-logs": "node ./src/utils/logProcessor.js"
+    "process-logs": "node ./src/utils/logProcessor.js",
+    "create-offer": "node ./src/createOfferTest.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
