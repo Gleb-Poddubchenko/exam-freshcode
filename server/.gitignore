@@ -1,5 +1,18 @@
+
+node_modules/
+
+
+logs/
+*.log
+
+
+.env
+*.env
+
+
+.DS_Store
 .idea/
 .vscode/
-node_modules/
-# uploadFiles/
 
+
+dist/
